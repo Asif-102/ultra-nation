@@ -1,6 +1,7 @@
 import logo from './logo.svg';
 import './App.css';
 import { useEffect, useState } from 'react';
+import Country from './components/Country/Country';
 
 function App() {
   const [countries, setCountries] =useState([])
@@ -9,11 +10,15 @@ function App() {
     fetch('https://restcountries.eu/rest/v2/all')
     .then(res => res.json())
     .then(data => setCountries(data))
+    .catch(error => console.log(error))
   },[])
 
   return (
     <div className="App">
       <h1>country loaded: {countries.length}</h1>
+        {
+          countries.map(country => <Country countryInfo={country}></Country>)
+        }
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
